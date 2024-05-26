@@ -7,8 +7,6 @@ import dev.shard.textdisplayapi.models.HologramType;
 import dev.shard.textdisplayapi.models.VerticalAlignment;
 import org.bukkit.Location;
 
-import java.util.logging.Logger;
-
 import static dev.shard.textdisplayapi.hologramtypes.Hologram.HologramBuilder;
 
 public class HologramFactory {
@@ -23,7 +21,7 @@ public class HologramFactory {
     }
 
     public static Hologram getHangingHologram(Location location, Direction direction, HologramLine... hologramLines){
-        Logger.getAnonymousLogger().fine("Creating hanging hologram at " + location.toString());
+        TextDisplayAPI.getPlugin().getLogger().fine("Creating hanging hologram at " + location.toString());
         return new HologramBuilder()
                 .addLines(hologramLines)
                 .setAnchorLocation(location)
@@ -34,7 +32,7 @@ public class HologramFactory {
     }
 
     public static Hologram getStandingHologram(Location location, Direction direction, HologramLine... hologramLines){
-        Logger.getAnonymousLogger().fine("Creating standing hologram at " + location.toString());
+        TextDisplayAPI.getPlugin().getLogger().fine("Creating standing hologram at " + location.toString());
         return new HologramBuilder()
                 .addLines(hologramLines)
                 .setAnchorLocation(location)
@@ -45,7 +43,7 @@ public class HologramFactory {
     }
 
     public static Hologram getWallHologram(Location location, Direction direction, HologramLine... hologramLines){
-        Logger.getAnonymousLogger().fine("Creating wall-mounted hologram at " + location.toString());
+        TextDisplayAPI.getPlugin().getLogger().fine("Creating wall-mounted hologram at " + location.toString());
         return new HologramBuilder()
                 .addLines(hologramLines)
                 .setAnchorLocation(location)

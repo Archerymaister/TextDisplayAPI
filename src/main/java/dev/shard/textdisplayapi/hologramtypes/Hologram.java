@@ -76,9 +76,9 @@ public abstract class Hologram {
         }
     }
 
-    public void update(HologramLine[] hologramLines) {
+    public void update() {
         for (int i = 0; i != lines.size(); i++) {
-            getLine(i, false).updateText(hologramLines[i].getText());
+            getLine(i, false).updateText(lines.get(i).getText());
         }
     }
 
