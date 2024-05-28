@@ -15,14 +15,19 @@ public class HologramService {
     private static final HashMap<Location, Hologram> holograms = new HashMap<>();
 
     /**
-     * Registers a topX hologram to be updated regularly in the configured interval.
+     * Registers a hologram to be tracked.
      *
-     * @param hologram Registered hologram.
+     * @param hologram Hologram to be registered.
      */
     public static void registerHologram(Hologram hologram){
         holograms.put(hologram.getAnchorLocation(), hologram);
     }
 
+    /**
+     * Removes the hologram from the list of tracked holograms.
+     * @param hologram Hologram to be removed.
+     * @return Removed hologram.
+     */
     public static Hologram unregisterHologram(Hologram hologram) {
         return holograms.remove(hologram.getAnchorLocation());
     }
@@ -82,10 +87,16 @@ public class HologramService {
         holograms.clear();
     }
 
+    /**
+     * Starts the hologram updater. Should only be called once upon initialization of the plugin
+     */
     public static void init() {
         HologramUpdater.start();
     }
 
+    /**
+     * Restarts the hologram updater.
+     */
     public static void reload() {
         TextDisplayAPI.getPlugin().getLogger().log(Level.INFO, "Reloading holograms...");
         stop();
@@ -124,6 +135,8 @@ public class HologramService {
 
         public static void stop(){
             getInstance().cancel();
+
+            // needs to be set to null, once it is canceled, this instance can no longer be started
             instance = null;
         }
     }

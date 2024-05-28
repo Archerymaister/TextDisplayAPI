@@ -58,6 +58,7 @@ public abstract class Hologram {
         this.lines.forEach(HologramLine::hide);
     }
 
+    // TODO: Rework
     private void create() {
         Vector[] lineSlots = alignment.getPlacementVectors(lines.size());
         for (int i = 0; i != lines.size(); i++) {
@@ -69,13 +70,15 @@ public abstract class Hologram {
                 alignedI -= 1;
             }
 
-            //Location lineLocation = this.anchorLocation.clone().add(0, alignedI * lineHeight, 0).add(getPositionRelativeToAnchor());
             Location lineLocation = this.anchorLocation.clone().add(lineSlots[i]).add(getPositionRelativeToAnchor());
             lineLocation.setYaw(direction.getDefaultYaw());
             getLine(i, alignment != VerticalAlignment.TOP).create(lineLocation);
         }
     }
 
+    /**
+     * Updates the hologram lines with whatever the current text is.
+     */
     public void update() {
         for (int i = 0; i != lines.size(); i++) {
             getLine(i, false).updateText(lines.get(i).getText());
