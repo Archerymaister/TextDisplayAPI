@@ -1,13 +1,14 @@
 package dev.shard.textdisplayapi.updater;
 
 import dev.shard.textdisplayapi.TextDisplayAPI;
-import dev.shard.textdisplayapi.exceptions.InvalidLocationException;
 import dev.shard.textdisplayapi.hologramtypes.Hologram;
 import org.bukkit.Location;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 
 public class HologramService {
@@ -43,22 +44,34 @@ public class HologramService {
     }
 
     /**
-     * Returns a hologram at the approximate given location. The X and Z axis have to be correct,
-     * but the Y axis (up/down) may be off by up to five blocks.
+     * Returns all holograms with the anchor block in the radius of the given location.
      *
      * @param location the expected location of a hologram
+     * @param radiusX offset on the x-axis
+     * @param radiusY offset on the y-axis
+     * @param radiusZ offset on the z-axis
      * @return hologram in this approximate area
-     * @throws InvalidLocationException When no hologram was found
      */
-    public static Hologram getHologram(Location location) throws InvalidLocationException {
-        for (Hologram hologram : getRegisteredHolograms()) {
-            if (hologram.getAnchorLocation().getBlockX() == location.getBlockX()
-                    && hologram.getAnchorLocation().getBlockZ() == location.getBlockZ()
-                    && Math.abs(hologram.getAnchorLocation().getBlockY() - location.getBlockY()) <= 5) {
-                return hologram;
+    public static Set<Hologram> getHolograms(Location location, double radiusX, double radiusY, double radiusZ){
+        Set<Hologram> holograms = new HashSet<>();
+        for(Hologram hologram : getRegisteredHolograms()){
+            if (Math.abs(hologram.getAnchorLocation().getBlockX() - location.getBlockX()) <= radiusX
+                    && Math.abs(hologram.getAnchorLocation().getBlockY() - location.getBlockY()) <= radiusY
+                    && Math.abs(hologram.getAnchorLocation().getBlockZ() - location.getBlockZ()) <= radiusZ) {
+                holograms.add(hologram);
             }
         }
-        throw new InvalidLocationException("No hologram at this location!", location);
+        return holograms;
+    }
+
+    /**
+     * Returns all holograms with the anchor block at the exact given location.
+     *
+     * @param location the expected location of a hologram
+     * @return holograms at this block
+     */
+    public static Set<Hologram> getHologramsAt(Location location) {
+        return getHolograms(location, 0, 0, 0);
     }
 
     private static void removeRegisteredHolograms(){
