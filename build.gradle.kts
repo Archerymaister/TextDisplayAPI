@@ -1,11 +1,16 @@
 plugins {
     id("java")
+    id("maven-publish")
+
+    id("dev.projectshard.build.distribution") version "0.1.2"
+    id("dev.projectshard.build.java-conventions") version "0.1.2"
 }
 
-group = "de.archerymaister"
-version = "1.0-SNAPSHOT"
+group = "dev.projectshard"
+version = "1.0.0-SNAPSHOT"
 
 repositories {
+    mavenLocal()
     mavenCentral()
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
     maven("https://oss.sonatype.org/content/repositories/central")
