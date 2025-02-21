@@ -1,6 +1,7 @@
 package dev.shard.textdisplayapi.models;
 
 import lombok.Getter;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
@@ -49,14 +50,14 @@ public class HologramLine {
 
     public void updateText(String newText){
         this.text = newText;
-        this.textDisplay.setText(newText);
+        this.textDisplay.text(Component.text(newText));
     }
 
     public void create(@NotNull Location location){
         Objects.requireNonNull(location.getWorld());
 
         this.textDisplay = (TextDisplay) location.getWorld().spawnEntity(location, EntityType.TEXT_DISPLAY);
-        this.textDisplay.setText(text);
+        this.textDisplay.text(Component.text(text));
         this.textDisplay.setAlignment(alignment);
         this.textDisplay.setLineWidth(lineWidth);
         this.textDisplay.setBackgroundColor(backgroundColor);

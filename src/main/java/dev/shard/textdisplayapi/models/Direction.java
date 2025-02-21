@@ -2,6 +2,7 @@ package dev.shard.textdisplayapi.models;
 
 import lombok.Getter;
 
+@Getter
 public enum Direction {
     SOUTH(0, -22.5f, 22.49f),
     SOUTH_WEST(45, 22.5f, 67.49f),
@@ -13,11 +14,8 @@ public enum Direction {
     EAST(-90, -112.49f, -67.5f),
     SOUTH_EAST(-45, -67.49f, -22.5f);
 
-    @Getter
     private final float minYaw;
-    @Getter
     private final float maxYaw;
-    @Getter
     private final float defaultYaw;
 
     Direction(float defaultYaw, float minYaw, float maxYaw) {

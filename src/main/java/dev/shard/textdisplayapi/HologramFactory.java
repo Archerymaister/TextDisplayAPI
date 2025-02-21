@@ -16,7 +16,6 @@ public class HologramFactory {
             case HANGING -> getHangingHologram(location, direction);
             case WALL -> getWallHologram(location, direction);
             case STANDING -> getStandingHologram(location, direction);
-            default -> throw new UnsupportedOperationException("Hologram type " + type.name() + " has not been implemented!");
         };
     }
 

@@ -6,19 +6,17 @@ import dev.shard.textdisplayapi.hologramtypes.StandingHologram;
 import dev.shard.textdisplayapi.hologramtypes.WallHologram;
 import lombok.Getter;
 
+@Getter
 public enum HologramType {
     STANDING(StandingHologram.class, true, 'S'),
     HANGING(HangingHologram.class, true, 'H'),
     WALL(WallHologram.class, false, 'W');
 
-    @Getter
-    private Class<? extends Hologram> clazz;
+    private final Class<? extends Hologram> clazz;
 
-    @Getter
-    private boolean supportsFineDirections;
+    private final boolean supportsFineDirections;
 
-    @Getter
-    private char shortIdentifier;
+    private final char shortIdentifier;
 
     HologramType(Class<? extends Hologram> clazz, boolean supportsFineDirections, char shortIdentifier) {
         this.clazz = clazz;
